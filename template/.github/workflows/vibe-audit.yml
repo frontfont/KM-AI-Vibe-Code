@@ -1,0 +1,13 @@
+# เรียกใช้ audit กลางจาก KM-AI Vibe Code Hub ทุกครั้งที่ push / เปิด PR
+name: vibe-audit
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    uses: frontfont/km-ai-vibe-code/.github/workflows/vibe-audit.yml@main

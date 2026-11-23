@@ -1,0 +1,33 @@
+# CI for this hub repo: schema, examples, registry and scanners must stay healthy.
+name: hub-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml jsonschema
+      - name: Examples must pass the schema
+        run: python scripts/validate_kabac.py examples/*/kabac.yaml
+      - name: Unfilled template must be rejected
+        run: |
+          if python scripts/validate_kabac.py template/kabac.yaml; then
+            echo "template/kabac.yaml should fail until it is filled in"; exit 1
+          fi
+      - name: Registry is valid YAML
+        run: python -c "import yaml,sys; d=yaml.safe_load(open('registry/projects.yaml')); assert isinstance(d.get('projects'), list)"
+      - name: Scanners run clean on this repo
+        run: |
+          python scripts/scan_skills.py .
+          python scripts/scan_pii.py .

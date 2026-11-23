@@ -1,0 +1,16 @@
+# Registry ของผลงานที่ผ่าน Audit แล้ว — เป็นแหล่งข้อมูลของเว็บ Hub
+# เพิ่มผ่าน PR เท่านั้น หลังจากผู้ตรวจครบตาม Tier อนุมัติใน Issue ของผลงานแล้ว
+#
+# รูปแบบแต่ละรายการ:
+# - slug: policy-search-assistant          # ตรงกับ meta.slug ใน kabac.yaml
+#   repo_url: https://github.com/<org>/<repo>
+#   kabac_path: kabac.yaml
+#   audit:
+#     tier: T2                             # T1 | T2 | T3
+#     result: approved_reusable            # approved_reusable | approved_showcase | rejected
+#     issue: 12                            # เลข Issue ที่ส่งผลงาน
+#     reviewed_by: [ai-coe, security]
+#     reviewed_at: 2026-11-23
+#     next_review: 2027-11-23              # Re-audit รายปี
+#   version: 1.0.0
+projects: []

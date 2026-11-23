@@ -1,0 +1,72 @@
+# KABAC - Knowledge AI Business Acceleration Canvas
+# คู่มือ: https://github.com/frontfont/km-ai-vibe-code/blob/main/docs/KABAC-MANUAL.md
+# กฎ: แต่ละช่องไม่เกิน 3 bullet · ทุก ADR ต้อง links_to ช่องธุรกิจ · ห้ามซ่อน trade-offs
+kabac_version: "1.0"
+
+meta:
+  project: "ชื่อโครงการ"
+  slug: "project-slug"                # a-z, 0-9, - (ใช้เป็น URL บนเว็บ Hub)
+  summary: "สรุปหนึ่งประโยคว่าทำอะไร"
+  owner: "ทีม / Product Owner"
+  status: Draft                       # Draft | Proposed | Accepted | Superseded
+  date: "2026-01-01"
+
+# ───────── TOP LAYER: BUSINESS LAYER (BMC) ─────────
+business:
+  problem_opportunity:                # 1. ปัญหาคอขวดคืออะไร ทำไมต้องใช้ AI
+    - "ปัญหา: ..."
+    - "โอกาส: ..."
+  value_roi:                          # 2. ผลลัพธ์เชิงปริมาณ เวลา/คุณภาพ/ตัวเงิน
+    - "..."
+  users_channels:                     # 3. ใคร กี่คน ผ่านช่องทางไหน
+    - "Users: ..."
+    - "Channels: ..."
+  data_resources:                     # 4. ข้อมูลอยู่ที่ไหน รูปแบบ อัปเดตบ่อยแค่ไหน
+    - "..."
+  cost_constraints:                   # 5. ค่าใช้จ่าย + ข้อจำกัดกฎหมาย/SLA
+    - "Cost: ..."
+    - "Constraints: ..."
+  activities_adoption:                # 6. งานสำคัญ + แผนให้คนใช้งานจริง
+    - "..."
+
+# ───────── BOTTOM LAYER: TECHNICAL DECISION LAYER (ADR) ─────────
+# category: model_knowledge | infrastructure_security | accuracy_guardrails | other
+# ต้องมี accuracy_guardrails อย่างน้อย 1 ข้อ
+adr:
+  - id: ADR-01
+    area: "Model & Knowledge Strategy"
+    category: model_knowledge
+    selected_architecture: "..."
+    rationale: "..."
+    links_to: [problem_opportunity, value_roi]
+    tradeoffs_mitigations: "..."
+  - id: ADR-02
+    area: "Infrastructure & Security"
+    category: infrastructure_security
+    selected_architecture: "..."
+    rationale: "..."
+    links_to: [cost_constraints]
+    tradeoffs_mitigations: "..."
+  - id: ADR-03
+    area: "Accuracy & Guardrails"
+    category: accuracy_guardrails
+    selected_architecture: "..."
+    rationale: "..."
+    links_to: [value_roi, cost_constraints]
+    tradeoffs_mitigations: "..."
+
+# ───────── 7. REUSE & COMPLIANCE (สำหรับ Hub) ─────────
+reuse:
+  bu: "BU-..."
+  company: "บริษัท ..."
+  asset_types: [app]                  # app | skill | prompt | agent | script | workflow
+  data_classification: internal       # public | internal | confidential | restricted_pii
+  connects_internal_systems: false
+  decision_impact: none               # none | assistive | financial_or_hr
+  ai_vendor_model: ["..."]
+  reuse_level: showcase_only          # showcase_only | reusable | production_ready
+  maintainer: "ชื่อผู้ดูแล / ทีม"
+  support: best_effort                # none | best_effort | supported
+  license: "Internal Group License"
+  repo_url: "https://github.com/..."
+  tags: []

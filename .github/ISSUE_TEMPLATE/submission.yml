@@ -1,0 +1,55 @@
+name: "🚀 ส่งผลงาน Vibe Coding"
+description: ลงทะเบียนผลงานเพื่อเข้ากระบวนการ Audit และเผยแพร่บน Hub
+title: "[Submission] <ชื่อโครงการ>"
+labels: ["submission", "status:intake"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ก่อนส่ง ตรวจให้แน่ใจว่า repo ของคุณสร้างจาก `template/`, มี `kabac.yaml` และ workflow **vibe-audit** ผ่านแล้ว
+        คู่มือ: [KABAC Manual](https://github.com/frontfont/km-ai-vibe-code/blob/main/docs/KABAC-MANUAL.md)
+  - type: input
+    id: repo
+    attributes:
+      label: ลิงก์ Repository
+      placeholder: https://github.com/<org>/<repo>
+    validations:
+      required: true
+  - type: input
+    id: audit_run
+    attributes:
+      label: ลิงก์ผล vibe-audit ที่ผ่านล่าสุด
+      placeholder: https://github.com/<org>/<repo>/actions/runs/...
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Audit Tier (จากผล vibe-audit)
+      options: ["T1 – Low", "T2 – Medium", "T3 – High"]
+    validations:
+      required: true
+  - type: input
+    id: bu
+    attributes:
+      label: BU / บริษัท
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: สรุปผลงานสั้นๆ
+      description: ทำอะไร ช่วยใคร ผลลัพธ์เป็นอย่างไร
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: ยืนยัน
+      options:
+        - label: ไม่มี secret, API key หรือข้อมูลส่วนบุคคลจริงอยู่ใน repo
+          required: true
+        - label: Skills / Prompts ทุกไฟล์ไม่มีคำสั่งส่งข้อมูลออกนอกองค์กร
+          required: true
+        - label: ยินยอมให้ BU และบริษัทในเครือนำไปใช้ต่อภายใต้ Internal Group License
+          required: true

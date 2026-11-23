@@ -1,0 +1,130 @@
+# Reusable automated audit for every Vibe Coding submission.
+# Called from each project repo (see template/.github/workflows/vibe-audit.yml):
+#   jobs:
+#     audit:
+#       uses: frontfont/km-ai-vibe-code/.github/workflows/vibe-audit.yml@main
+name: vibe-audit (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      kabac_path:
+        description: Path to kabac.yaml in the calling repo
+        type: string
+        default: kabac.yaml
+      hub_ref:
+        description: Ref of km-ai-vibe-code to take scripts/schema from
+        type: string
+        default: main
+    outputs:
+      tier:
+        description: Audit tier computed from kabac.yaml (T1/T2/T3)
+        value: ${{ jobs.kabac.outputs.tier }}
+
+permissions:
+  contents: read
+
+jobs:
+  kabac:
+    name: KABAC schema + tier
+    runs-on: ubuntu-latest
+    outputs:
+      tier: ${{ steps.validate.outputs.tier }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: frontfont/km-ai-vibe-code
+          ref: ${{ inputs.hub_ref }}
+          path: .vibe-hub
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml jsonschema
+      - id: validate
+        run: python .vibe-hub/scripts/validate_kabac.py "${{ inputs.kabac_path }}"
+
+  secrets:
+    name: Secrets (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run gitleaks over full history
+        run: |
+          docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.21.2 \
+            detect --source /repo --redact --verbose
+
+  sast:
+    name: SAST (Semgrep)
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep scan --config p/default --severity ERROR --error --metrics off
+
+  dependencies:
+    name: Dependencies (Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+
+  pii:
+    name: PII (PDPA)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: frontfont/km-ai-vibe-code
+          ref: ${{ inputs.hub_ref }}
+          path: .vibe-hub
+      - run: python3 .vibe-hub/scripts/scan_pii.py .
+
+  skills:
+    name: Skills / Prompts safety
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: frontfont/km-ai-vibe-code
+          ref: ${{ inputs.hub_ref }}
+          path: .vibe-hub
+      - run: python3 .vibe-hub/scripts/scan_skills.py .
+
+  summary:
+    name: Audit summary
+    if: always()
+    needs: [kabac, secrets, sast, dependencies, pii, skills]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write summary
+        run: |
+          {
+            echo "## Vibe Audit result"
+            echo ""
+            echo "| Check | Result |"
+            echo "|---|---|"
+            echo "| KABAC | ${{ needs.kabac.result }} |"
+            echo "| Secrets | ${{ needs.secrets.result }} |"
+            echo "| SAST | ${{ needs.sast.result }} |"
+            echo "| Dependencies | ${{ needs.dependencies.result }} |"
+            echo "| PII | ${{ needs.pii.result }} |"
+            echo "| Skills | ${{ needs.skills.result }} |"
+            echo ""
+            echo "**Audit tier:** ${{ needs.kabac.outputs.tier || 'n/a' }}"
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Fail if any check failed
+        if: contains(needs.*.result, 'failure')
+        run: exit 1
