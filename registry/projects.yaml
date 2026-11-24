@@ -5,6 +5,7 @@
 # - slug: policy-search-assistant          # ตรงกับ meta.slug ใน kabac.yaml
 #   repo_url: https://github.com/<org>/<repo>
 #   kabac_path: kabac.yaml
+#   cover: assets/covers/policy-search-assistant.svg   # ภาพปก 16:9 (ไม่บังคับ)
 #   audit:
 #     tier: T2                             # T1 | T2 | T3
 #     result: approved_reusable            # approved_reusable | approved_showcase | rejected

@@ -6,6 +6,7 @@ window.HUB_DATA = {
       "slug": "policy-search-assistant",
       "version": "1.2.0",
       "downloads": 148,
+      "cover": "assets/covers/policy-search-assistant.svg",
       "audit": {
         "tier": "T2",
         "result": "approved_reusable",
@@ -121,6 +122,7 @@ window.HUB_DATA = {
       "slug": "meeting-minutes-skill",
       "version": "2.0.1",
       "downloads": 412,
+      "cover": "assets/covers/meeting-minutes-skill.svg",
       "audit": {
         "tier": "T1",
         "result": "approved_reusable",
@@ -219,6 +221,7 @@ window.HUB_DATA = {
       "slug": "invoice-checker-agent",
       "version": "0.9.0",
       "downloads": 37,
+      "cover": "assets/covers/invoice-checker-agent.svg",
       "audit": {
         "tier": "T3",
         "result": "approved_showcase",
@@ -332,6 +335,7 @@ window.HUB_DATA = {
       "slug": "sales-email-prompts",
       "version": "1.0.0",
       "downloads": 903,
+      "cover": "assets/covers/sales-email-prompts.svg",
       "audit": {
         "tier": "T1",
         "result": "approved_reusable",

@@ -76,6 +76,9 @@
   };
   const chips = (items, map) => items.map((i) => `<span class="chip">${esc(map ? map[i] || i : i)}</span>`).join("");
   const fmt = (n) => Number(n || 0).toLocaleString("th-TH");
+  // Cover image (optional). Falls back to the gradient + type icon when absent.
+  const coverCls = (p) => (p.cover ? "has-img" : "");
+  const coverImg = (p) => (p.cover ? `<img class="cover-img" src="${esc(p.cover)}" alt="" loading="lazy">` : "");
 
   // Bookmarks are a per-viewer convenience; storage may be unavailable.
   const SAVE_KEY = "vibehub.saved";
@@ -151,7 +154,8 @@
     return `<section class="featured" aria-label="ผลงานแนะนำ">${top.map((p, i) => {
       const k = p.kabac;
       return `
-        <a class="cover feature ${i ? "small" : ""}" data-type="${esc(mainType(p))}" href="#/p/${encodeURIComponent(p.slug)}">
+        <a class="cover feature ${i ? "small" : ""} ${coverCls(p)}" data-type="${esc(mainType(p))}" href="#/p/${encodeURIComponent(p.slug)}">
+          ${coverImg(p)}
           <span class="frame"></span>
           <span class="cover-icon">${icon(mainType(p))}</span>
           ${saveBtn(p.slug)}
@@ -191,7 +195,8 @@
       const k = p.kabac, t = mainType(p);
       return `
         <a class="card" href="#/p/${encodeURIComponent(p.slug)}">
-          <div class="cover" data-type="${esc(t)}">
+          <div class="cover ${coverCls(p)}" data-type="${esc(t)}">
+            ${coverImg(p)}
             <span class="frame"></span>
             <span class="cover-icon">${icon(t)}</span>
             <span class="cover-label">${esc(k.reuse.asset_types.map((x) => LABELS.asset[x] || x).join(" · "))}</span>
@@ -221,7 +226,8 @@
 
     app.innerHTML = `
       <a class="back" href="#/">${icon("back")} ผลงานทั้งหมด</a>
-      <section class="cover detail-cover" data-type="${esc(t)}">
+      <section class="cover detail-cover ${coverCls(p)}" data-type="${esc(t)}">
+        ${coverImg(p)}
         <span class="frame"></span>
         <span class="cover-icon">${icon(t)}</span>
         ${saveBtn(p.slug)}

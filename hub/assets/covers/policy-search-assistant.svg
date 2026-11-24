@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1a33"/><stop offset=".55" stop-color="#16325a"/><stop offset="1" stop-color="#1f6f78"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f7c600" stop-opacity=".55"/><stop offset="1" stop-color="#f7c600" stop-opacity="0"/></radialGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f1e6"/><stop offset="1" stop-color="#cfd6e2"/></linearGradient>
+    <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#9fd6dc" stop-opacity=".08"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000" flood-opacity=".45"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g stroke="#fff" stroke-opacity=".05">
+    <path d="M0 120H1200M0 240H1200M0 360H1200M0 480H1200M0 600H1200M150 0V675M300 0V675M450 0V675M600 0V675M750 0V675M900 0V675M1050 0V675"/>
+  </g>
+  <circle cx="820" cy="300" r="230" fill="url(#glow)"/>
+  <!-- document stack -->
+  <g filter="url(#shadow)" transform="rotate(-8 600 340)">
+    <rect x="520" y="150" width="300" height="390" rx="14" fill="#8fa3bf"/>
+  </g>
+  <g filter="url(#shadow)" transform="rotate(4 640 340)">
+    <rect x="560" y="140" width="300" height="390" rx="14" fill="#b8c5d6"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="600" y="130" width="310" height="400" rx="14" fill="url(#paper)"/>
+    <rect x="636" y="170" width="150" height="16" rx="8" fill="#1d2d50"/>
+    <g fill="#8a97ab"><rect x="636" y="210" width="236" height="10" rx="5"/><rect x="636" y="234" width="210" height="10" rx="5"/><rect x="636" y="258" width="228" height="10" rx="5"/></g>
+    <rect x="630" y="286" width="250" height="44" rx="8" fill="#f7c600" fill-opacity=".45"/>
+    <g fill="#1d2d50"><rect x="642" y="300" width="200" height="10" rx="5"/></g>
+    <g fill="#8a97ab"><rect x="636" y="350" width="236" height="10" rx="5"/><rect x="636" y="374" width="190" height="10" rx="5"/><rect x="636" y="398" width="222" height="10" rx="5"/><rect x="636" y="422" width="160" height="10" rx="5"/></g>
+    <text x="636" y="500" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1d2d50" fill-opacity=".5">PDF · p.12</text>
+  </g>
+  <!-- magnifier -->
+  <g filter="url(#shadow)">
+    <circle cx="760" cy="308" r="92" fill="url(#lens)" stroke="#f7c600" stroke-width="16"/>
+    <path d="M826 374 L920 468" stroke="#f7c600" stroke-width="28" stroke-linecap="round"/>
+    <path d="M708 262 a70 70 0 0 1 60 -24" stroke="#fff" stroke-opacity=".7" stroke-width="8" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- answer bubble -->
+  <g filter="url(#shadow)">
+    <path d="M150 210 h300 a22 22 0 0 1 22 22 v128 a22 22 0 0 1 -22 22 h-210 l-46 40 v-40 h-44 a22 22 0 0 1 -22 -22 v-128 a22 22 0 0 1 22 -22z" fill="#ffffff"/>
+    <circle cx="196" cy="256" r="20" fill="#1f6f78"/>
+    <path d="M186 256 l7 7 13 -14" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="232" y="246" width="190" height="14" rx="7" fill="#1d2d50"/>
+    <g fill="#9aa6b6"><rect x="176" y="296" width="262" height="11" rx="5.5"/><rect x="176" y="320" width="230" height="11" rx="5.5"/></g>
+    <rect x="176" y="346" width="120" height="20" rx="10" fill="#f7c600"/>
+  </g>
+  <g fill="#f7c600">
+    <circle cx="520" cy="560" r="5"/><circle cx="1010" cy="160" r="6"/><circle cx="120" cy="520" r="4"/>
+  </g>
+  <rect width="1200" height="675" fill="#000" fill-opacity=".08"/>
+</svg>

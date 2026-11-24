@@ -1,22 +1,27 @@
 # Demo registry for the Hub prototype — uses the fictional projects in examples/.
 # The real list lives in registry/projects.yaml.
+# `cover` is an optional image path relative to hub/ (16:9, e.g. 1200x675).
 projects:
   - slug: policy-search-assistant
+    cover: assets/covers/policy-search-assistant.svg
     kabac_file: examples/policy-search-assistant/kabac.yaml
     version: 1.2.0
     downloads: 148
     audit: {tier: T2, result: approved_reusable, reviewed_by: [ai-coe, security], reviewed_at: 2026-11-20, next_review: 2027-11-20}
   - slug: meeting-minutes-skill
+    cover: assets/covers/meeting-minutes-skill.svg
     kabac_file: examples/meeting-minutes-skill/kabac.yaml
     version: 2.0.1
     downloads: 412
     audit: {tier: T1, result: approved_reusable, reviewed_by: [ai-coe], reviewed_at: 2026-10-05, next_review: 2027-10-05}
   - slug: invoice-checker-agent
+    cover: assets/covers/invoice-checker-agent.svg
     kabac_file: examples/invoice-checker-agent/kabac.yaml
     version: 0.9.0
     downloads: 37
     audit: {tier: T3, result: approved_showcase, reviewed_by: [ai-coe, security, dpo, legal], reviewed_at: 2026-11-18, next_review: 2027-05-18}
   - slug: sales-email-prompts
+    cover: assets/covers/sales-email-prompts.svg
     kabac_file: examples/sales-email-prompts/kabac.yaml
     version: 1.0.0
     downloads: 903

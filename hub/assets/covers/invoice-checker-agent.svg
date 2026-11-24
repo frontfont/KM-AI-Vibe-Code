@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#071716"/><stop offset=".5" stop-color="#0f3534"/><stop offset="1" stop-color="#256e5a"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#5fe0b4" stop-opacity=".35"/><stop offset="1" stop-color="#5fe0b4" stop-opacity="0"/></radialGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f8f7"/><stop offset="1" stop-color="#d3ddd9"/></linearGradient>
+    <linearGradient id="db" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1d3a52"/><stop offset=".5" stop-color="#2f5878"/><stop offset="1" stop-color="#1d3a52"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g fill="#5fe0b4" fill-opacity=".07"><circle cx="100" cy="100" r="3"/><circle cx="160" cy="100" r="3"/><circle cx="220" cy="100" r="3"/><circle cx="100" cy="160" r="3"/><circle cx="160" cy="160" r="3"/><circle cx="220" cy="160" r="3"/></g>
+  <circle cx="600" cy="330" r="260" fill="url(#glow)"/>
+  <!-- ERP database -->
+  <g filter="url(#shadow)">
+    <path d="M110 230 v220 a110 34 0 0 0 220 0 v-220z" fill="url(#db)"/>
+    <ellipse cx="220" cy="230" rx="110" ry="34" fill="#4a7aa0"/>
+    <path d="M110 305 a110 34 0 0 0 220 0 M110 380 a110 34 0 0 0 220 0" stroke="#7fb2d8" stroke-opacity=".6" stroke-width="3" fill="none"/>
+    <text x="220" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#cfe6f7" fill-opacity=".75">ERP</text>
+  </g>
+  <!-- connectors -->
+  <g stroke="#5fe0b4" stroke-width="4" stroke-dasharray="3 12" stroke-linecap="round" fill="none">
+    <path d="M335 320 C 410 320, 420 330, 495 330"/>
+    <path d="M705 330 C 780 330, 790 300, 860 300"/>
+  </g>
+  <!-- robot agent -->
+  <g filter="url(#shadow)">
+    <path d="M600 160 v40" stroke="#f7c600" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="600" cy="150" r="14" fill="#f7c600"/>
+    <rect x="495" y="200" width="210" height="190" rx="46" fill="#e9f2ef"/>
+    <rect x="525" y="240" width="150" height="90" rx="26" fill="#0f3534"/>
+    <circle cx="565" cy="285" r="15" fill="#5fe0b4"/><circle cx="635" cy="285" r="15" fill="#5fe0b4"/>
+    <path d="M575 355 q25 16 50 0" stroke="#0f3534" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <rect x="470" y="262" width="25" height="66" rx="10" fill="#bcd2cb"/><rect x="705" y="262" width="25" height="66" rx="10" fill="#bcd2cb"/>
+  </g>
+  <!-- invoice with flags -->
+  <g filter="url(#shadow)" transform="rotate(-3 990 330)">
+    <rect x="860" y="120" width="260" height="410" rx="14" fill="url(#paper)"/>
+    <text x="890" y="170" font-family="Arial, sans-serif" font-size="26" font-weight="800" fill="#0f3534">INVOICE</text>
+    <g fill="#9fb0aa"><rect x="890" y="190" width="120" height="9" rx="4.5"/></g>
+    <g>
+      <rect x="884" y="228" width="212" height="34" rx="6" fill="#e4f5ea"/><rect x="896" y="240" width="110" height="10" rx="5" fill="#5c7068"/><path d="M1068 245 l6 6 12 -13" stroke="#17663a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <rect x="884" y="272" width="212" height="34" rx="6" fill="#e4f5ea"/><rect x="896" y="284" width="90" height="10" rx="5" fill="#5c7068"/><path d="M1068 289 l6 6 12 -13" stroke="#17663a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <rect x="884" y="316" width="212" height="34" rx="6" fill="#fde2c4" stroke="#e07b00" stroke-width="2"/><rect x="896" y="328" width="120" height="10" rx="5" fill="#5c7068"/>
+      <path d="M1074 323 v18" stroke="#e07b00" stroke-width="4" stroke-linecap="round"/><circle cx="1074" cy="346" r="2.5" fill="#e07b00"/>
+      <rect x="884" y="360" width="212" height="34" rx="6" fill="#e4f5ea"/><rect x="896" y="372" width="100" height="10" rx="5" fill="#5c7068"/><path d="M1068 377 l6 6 12 -13" stroke="#17663a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </g>
+    <rect x="884" y="420" width="212" height="2" fill="#9fb0aa"/>
+    <rect x="980" y="440" width="116" height="16" rx="8" fill="#0f3534"/>
+    <rect x="884" y="476" width="120" height="30" rx="15" fill="#f7c600"/>
+  </g>
+  <!-- human approval -->
+  <g filter="url(#shadow)">
+    <circle cx="1030" cy="580" r="44" fill="#f7c600"/>
+    <circle cx="1030" cy="566" r="13" fill="#1d2d50"/><path d="M1006 600 q24 -26 48 0" fill="#1d2d50"/>
+  </g>
+</svg>

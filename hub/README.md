@@ -38,6 +38,10 @@ hub/demo-registry.yaml ┘   (ตรวจ schema + คำนวณ Tier)
 python3 scripts/build_hub_data.py
 ```
 
+## ภาพปก
+
+ใส่ `cover:` ใน registry เพื่อกำหนดภาพปก (สัดส่วน 16:9 เช่น 1200×675, เป็น SVG/PNG/JPG) ถ้าไม่ใส่จะใช้พื้นสีไล่เฉดตามประเภทผลงานแทน ภาพปกตัวอย่างอยู่ใน [`assets/covers/`](assets/covers/)
+
 Tier บนเว็บคำนวณจาก `kabac.yaml` เสมอ ไม่ได้ใช้ค่าที่พิมพ์ไว้ใน registry
 
 ## ยังไม่ได้ทำ

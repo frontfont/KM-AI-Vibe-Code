@@ -126,6 +126,25 @@ main { min-width: 0; }
 .cover-icon svg.i { width: 110px; height: 110px; stroke-width: 1.2; }
 .gold-text { background: linear-gradient(180deg, #fff3b0 0%, #f7c600 55%, #c99a00 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
+/* Real cover images: image + scrim so overlaid text stays readable */
+.cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.cover.has-img::after { opacity: 1; background: linear-gradient(0deg, rgba(8,12,24,.55) 0%, rgba(8,12,24,0) 45%); }
+.cover.has-img .cover-icon { display: none; }
+/* Featured: art sits in the top part and fades into the text below */
+.feature.has-img .cover-img { height: 64%; object-position: center 30%;
+  -webkit-mask-image: linear-gradient(180deg, #000 35%, transparent 90%); mask-image: linear-gradient(180deg, #000 35%, transparent 90%); }
+.feature.has-img::after { opacity: 0; }
+/* Detail banner: art on the right, fading into the text on the left */
+.detail-cover.has-img .cover-img { left: auto; width: 58%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 40%); mask-image: linear-gradient(90deg, transparent, #000 40%); }
+.detail-cover.has-img::after { opacity: 0; }
+@media (max-width: 860px) {
+  .detail-cover.has-img .cover-img { width: 100%; height: 240px;
+    -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent); mask-image: linear-gradient(180deg, #000 45%, transparent); }
+  .detail-cover.has-img .cover-inner { padding-top: 220px; }
+  .feature.has-img .cover-inner { padding-top: 170px; }
+}
+
 /* ---------- Featured ---------- */
 .featured { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 24px; margin-bottom: 44px; }
 .feature { display: block; min-height: 400px; box-shadow: var(--shadow); transition: transform .2s ease; }

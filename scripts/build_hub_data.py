@@ -48,6 +48,7 @@ def main(argv: list[str]) -> int:
             "slug": entry["slug"],
             "version": entry.get("version", "0.1.0"),
             "downloads": entry.get("downloads", 0),
+            "cover": entry.get("cover"),
             "audit": audit,
             "kabac": kabac,
         })
