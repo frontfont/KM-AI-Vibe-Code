@@ -86,15 +86,20 @@ svg.i { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-widt
 main { min-width: 0; }
 
 /* Floating icon rail */
-.rail { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 4px; padding: 12px 10px; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); }
+.rail { position: sticky; top: 100px; z-index: 15; display: flex; flex-direction: column; gap: 4px; padding: 12px 10px; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow); }
 .rail a { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 12px; color: var(--navy); }
 .rail a svg.i { width: 26px; height: 26px; }
 .rail a:hover { background: var(--chip); }
 .rail a.active { background: var(--gold); color: #1d2d50; }
 .rail a span { display: none; }
-.rail a:hover span {
-  display: block; position: absolute; left: 62px; top: 50%; transform: translateY(-50%); white-space: nowrap;
-  background: var(--navy); color: var(--surface); padding: 4px 12px; border-radius: 8px; font: 500 14px var(--font-head); z-index: 5;
+.rail a:hover span, .rail a:focus-visible span {
+  display: block; position: absolute; left: 66px; top: 50%; transform: translateY(-50%); white-space: nowrap; pointer-events: none;
+  background: #1d2d50; color: #fff; padding: 6px 14px; border-radius: 8px; font: 500 14px var(--font-head);
+  box-shadow: 0 6px 18px rgba(29,45,80,.25);
+}
+.rail a:hover span::before, .rail a:focus-visible span::before {
+  content: ""; position: absolute; left: -5px; top: 50%; width: 10px; height: 10px; background: #1d2d50;
+  transform: translateY(-50%) rotate(45deg); border-radius: 2px;
 }
 .rail hr { border: 0; border-top: 1px solid var(--border); margin: 6px 4px; }
 
@@ -317,7 +322,8 @@ main { min-width: 0; }
   }
   .rail a { width: auto; height: 40px; padding: 0 14px; display: inline-flex; gap: 6px; border-radius: 999px; flex: none; }
   .rail a svg.i { width: 20px; height: 20px; }
-  .rail a span, .rail a:hover span { display: inline; position: static; transform: none; background: none; color: inherit; padding: 0; font: 500 14px var(--font-head); }
+  .rail a span::before { display: none; }
+  .rail a span, .rail a:hover span, .rail a:focus-visible span { display: inline; box-shadow: none; position: static; transform: none; background: none; color: inherit; padding: 0; font: 500 14px var(--font-head); }
   .rail hr { display: none; }
   .hero { padding-top: 16px; }
   .hero-title { font-size: clamp(30px, 9vw, 44px); }
