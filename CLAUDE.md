@@ -9,4 +9,5 @@ Central repo for collecting the organisation's AI Vibe Coding projects, auditing
 - Check locally before pushing:
   - `python scripts/validate_kabac.py examples/*/kabac.yaml`
   - `python scripts/scan_skills.py .` and `python scripts/scan_pii.py .`
+- `hub/` is a static prototype site (no build tooling). Regenerate `hub/data/projects.js` with `python scripts/build_hub_data.py` whenever examples or the registry change; hub-ci fails if it is stale.
 - Roadmap and open decisions: `docs/PROGRAM-PLAN.md`.

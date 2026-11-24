@@ -27,6 +27,10 @@ jobs:
           fi
       - name: Registry is valid YAML
         run: python -c "import yaml,sys; d=yaml.safe_load(open('registry/projects.yaml')); assert isinstance(d.get('projects'), list)"
+      - name: Hub data is up to date
+        run: |
+          python scripts/build_hub_data.py
+          git diff --exit-code hub/data/projects.js || { echo '::error::Run scripts/build_hub_data.py and commit hub/data/projects.js'; exit 1; }
       - name: Scanners run clean on this repo
         run: |
           python scripts/scan_skills.py .

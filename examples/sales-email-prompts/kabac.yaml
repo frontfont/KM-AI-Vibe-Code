@@ -1,0 +1,47 @@
+# ตัวอย่างสมมติสำหรับเว็บต้นแบบ
+kabac_version: "1.0"
+meta:
+  project: "Sales Email Prompt Pack"
+  slug: "sales-email-prompts"
+  summary: "ชุด Prompt 12 แบบสำหรับเขียนอีเมลเสนอขาย ติดตามลูกค้า และตอบข้อโต้แย้ง ภาษาไทย/อังกฤษ"
+  owner: "ทีม Marketing"
+  status: Accepted
+  date: "2026-09-15"
+business:
+  problem_opportunity:
+    - "ปัญหา: พนักงานขายใหม่เขียนอีเมลไม่เป็นมาตรฐาน ใช้เวลานาน"
+    - "โอกาส: แจก Prompt ที่ผ่านการทดสอบแล้วให้ใช้กับ AI ใดก็ได้"
+  value_roi:
+    - "ลดเวลาเขียนอีเมลจาก 20 นาทีเหลือ 3 นาที"
+  users_channels:
+    - "Users: พนักงานขายและ Marketing ทุกบริษัทในเครือ"
+    - "Channels: Copy ไปใช้ใน Claude / ChatGPT / Copilot"
+  data_resources:
+    - "ตัวอย่างอีเมลที่ได้ผลดีย้อนหลัง 1 ปี (ลบข้อมูลลูกค้าแล้ว)"
+  cost_constraints:
+    - "Cost: ไม่มี"
+    - "Constraints: ห้ามใส่ชื่อหรือข้อมูลลูกค้าจริงลงใน Prompt"
+  activities_adoption:
+    - "รวมไว้ใน onboarding พนักงานขายใหม่"
+adr:
+  - id: ADR-01
+    area: "Accuracy & Guardrails"
+    category: accuracy_guardrails
+    selected_architecture: "Prompt มีช่อง {placeholder} และคำเตือนห้ามใส่ข้อมูลลูกค้า"
+    rationale: "ป้องกันข้อมูลลูกค้ารั่วไปยัง AI ภายนอกที่ไม่ได้รับอนุมัติ"
+    links_to: [cost_constraints]
+    tradeoffs_mitigations: "อีเมลที่ได้อาจทั่วไปเกินไป → ให้ผู้ใช้เติมรายละเอียดเองก่อนส่ง"
+reuse:
+  bu: "BU-Marketing"
+  company: "บริษัท ตัวอย่าง C จำกัด"
+  asset_types: [prompt]
+  data_classification: public
+  connects_internal_systems: false
+  decision_impact: none
+  ai_vendor_model: ["ใช้ได้กับทุกโมเดล"]
+  reuse_level: production_ready
+  maintainer: "ทีม Marketing"
+  support: best_effort
+  license: "Internal Group License"
+  repo_url: "https://github.com/example-org/sales-email-prompts"
+  tags: [prompt, sales, email]

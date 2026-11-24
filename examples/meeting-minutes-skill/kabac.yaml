@@ -1,0 +1,56 @@
+# ตัวอย่างสมมติสำหรับเว็บต้นแบบ
+kabac_version: "1.0"
+meta:
+  project: "Meeting Minutes Skill"
+  slug: "meeting-minutes-skill"
+  summary: "Claude Skill สรุปรายงานการประชุมจาก transcript เป็นรูปแบบมาตรฐานขององค์กร พร้อม Action Items"
+  owner: "ทีม HR Operations"
+  status: Accepted
+  date: "2026-10-02"
+business:
+  problem_opportunity:
+    - "ปัญหา: เลขาฯ ใช้เวลาเขียนรายงานการประชุม 1–2 ชั่วโมงต่อครั้ง และรูปแบบไม่เหมือนกัน"
+    - "โอกาส: ให้ AI สรุปจาก transcript ตาม template กลาง"
+  value_roi:
+    - "ลดเวลาเขียนรายงานเหลือ 10 นาที (ลด 85%)"
+    - "รูปแบบรายงานเป็นมาตรฐานเดียวกันทั้งองค์กร"
+  users_channels:
+    - "Users: เลขานุการและหัวหน้าทีม ~400 คน"
+    - "Channels: Claude (Skill) ผ่าน Desktop App"
+  data_resources:
+    - "Transcript จาก Teams/Zoom ที่ผู้ใช้อัปโหลดเอง"
+    - "Template รายงานการประชุมขององค์กร"
+  cost_constraints:
+    - "Cost: ใช้ license Claude ที่องค์กรมีอยู่แล้ว ไม่มีค่าใช้จ่ายเพิ่ม"
+    - "Constraints: ห้ามใช้กับการประชุมระดับ Confidential ขึ้นไป"
+  activities_adoption:
+    - "อบรมเลขาฯ 2 รอบ และแจก Skill ผ่าน Hub"
+adr:
+  - id: ADR-01
+    area: "Model & Knowledge Strategy"
+    category: model_knowledge
+    selected_architecture: "Claude Skill (SKILL.md + template) ไม่มี backend"
+    rationale: "ไม่ต้องมีระบบใหม่ ใช้เครื่องมือที่พนักงานมีอยู่แล้ว ต้นทุนเป็นศูนย์"
+    links_to: [cost_constraints, users_channels]
+    tradeoffs_mitigations: "ผู้ใช้ต้องอัปโหลด transcript เอง → มีคู่มือ export จาก Teams/Zoom"
+  - id: ADR-02
+    area: "Accuracy & Guardrails"
+    category: accuracy_guardrails
+    selected_architecture: "บังคับให้อ้างเวลาใน transcript ทุก Action Item และให้ผู้ใช้ตรวจก่อนส่ง"
+    rationale: "Action Item ที่ผิดทำให้งานตกหล่น จึงต้องตรวจย้อนได้"
+    links_to: [value_roi]
+    tradeoffs_mitigations: "ผู้ใช้อาจไม่ตรวจ → ใส่ข้อความเตือนท้ายรายงานทุกฉบับ"
+reuse:
+  bu: "BU-HR"
+  company: "บริษัท ตัวอย่าง B จำกัด"
+  asset_types: [skill]
+  data_classification: internal
+  connects_internal_systems: false
+  decision_impact: none
+  ai_vendor_model: ["Claude (องค์กร)"]
+  reuse_level: reusable
+  maintainer: "ทีม HR Operations"
+  support: best_effort
+  license: "Internal Group License"
+  repo_url: "https://github.com/example-org/meeting-minutes-skill"
+  tags: [skill, meeting, productivity]

@@ -1,0 +1,61 @@
+# ตัวอย่างสมมติสำหรับเว็บต้นแบบ
+kabac_version: "1.0"
+meta:
+  project: "Invoice Checker Agent"
+  slug: "invoice-checker-agent"
+  summary: "Agent ตรวจใบแจ้งหนี้เทียบกับใบสั่งซื้อในระบบ ERP และแจ้งรายการผิดปกติก่อนอนุมัติจ่าย"
+  owner: "ทีม Finance Automation"
+  status: Proposed
+  date: "2026-11-10"
+business:
+  problem_opportunity:
+    - "ปัญหา: ตรวจใบแจ้งหนี้ด้วยมือเดือนละ 6,000 ใบ พบจ่ายเกินปีละหลายครั้ง"
+    - "โอกาส: ให้ AI เทียบกับ PO และสัญญาอัตโนมัติ"
+  value_roi:
+    - "ลดเวลาตรวจ 70% และลดการจ่ายเกินที่ตรวจไม่พบ"
+  users_channels:
+    - "Users: เจ้าหน้าที่บัญชีเจ้าหนี้ 25 คน"
+    - "Channels: หน้าจอใน ERP Portal"
+  data_resources:
+    - "ใบแจ้งหนี้ PDF, ข้อมูล PO และสัญญาใน ERP"
+  cost_constraints:
+    - "Cost: API Token ~15,000 บาท/เดือน + ค่า integration"
+    - "Constraints: ข้อมูลคู่ค้าเป็น Confidential, การอนุมัติจ่ายต้องเป็นคน"
+  activities_adoption:
+    - "Pilot กับคู่ค้า 50 รายแรก แล้วขยาย"
+adr:
+  - id: ADR-01
+    area: "Model & Knowledge Strategy"
+    category: model_knowledge
+    selected_architecture: "LLM อ่าน PDF + rule engine เทียบตัวเลขกับ ERP"
+    rationale: "LLM เก่งเรื่องอ่านเอกสารหลายรูปแบบ แต่การเทียบตัวเลขต้องแม่นยำ 100% จึงให้ rule engine ทำ"
+    links_to: [problem_opportunity, value_roi]
+    tradeoffs_mitigations: "ระบบซับซ้อนขึ้น → แยก module ชัดเจนและมี test set 500 ใบ"
+  - id: ADR-02
+    area: "Infrastructure & Security"
+    category: infrastructure_security
+    selected_architecture: "รันใน VPC องค์กร, service account อ่านอย่างเดียวใน ERP"
+    rationale: "ข้อมูลคู่ค้าเป็น Confidential และ Agent ไม่ควรแก้ข้อมูลใน ERP ได้"
+    links_to: [cost_constraints]
+    tradeoffs_mitigations: "Agent สร้างรายการแก้ไขเองไม่ได้ → ส่งเป็นข้อเสนอให้คนกดยืนยัน"
+  - id: ADR-03
+    area: "Accuracy & Guardrails"
+    category: accuracy_guardrails
+    selected_architecture: "Human-in-the-loop: AI แค่ติดธง คนเป็นผู้อนุมัติจ่ายเสมอ"
+    rationale: "การจ่ายเงินมีผลทางการเงินโดยตรง ต้องมีคนรับผิดชอบขั้นสุดท้าย"
+    links_to: [cost_constraints, activities_adoption]
+    tradeoffs_mitigations: "ประหยัดเวลาได้น้อยกว่าแบบอัตโนมัติเต็ม → ยอมรับเพื่อความปลอดภัย"
+reuse:
+  bu: "BU-Finance"
+  company: "บริษัท ตัวอย่าง จำกัด"
+  asset_types: [agent, app]
+  data_classification: confidential
+  connects_internal_systems: true
+  decision_impact: financial_or_hr
+  ai_vendor_model: ["Claude API (zero data retention)"]
+  reuse_level: showcase_only
+  maintainer: "ทีม Finance Automation"
+  support: supported
+  license: "Internal Group License"
+  repo_url: "https://github.com/example-org/invoice-checker-agent"
+  tags: [agent, finance, erp, document-ai]

@@ -35,6 +35,7 @@ python scripts/validate_kabac.py path/to/kabac.yaml
 
 | Path | คืออะไร |
 |---|---|
+| [`hub/`](hub/) | **เว็บ Hub ต้นแบบ** เปิด `hub/index.html` ดูได้เลย |
 | [`docs/PROGRAM-PLAN.md`](docs/PROGRAM-PLAN.md) | แผนโครงการทั้งหมด: Flow, Audit, Hub, บทบาท, Rollout |
 | [`docs/KABAC-MANUAL.md`](docs/KABAC-MANUAL.md) | คู่มือ KABAC (ฉบับ Markdown + ส่วนที่ 7 Reuse & Compliance) |
 | [`docs/AUDIT-CHECKLIST.md`](docs/AUDIT-CHECKLIST.md) | Checklist ตรวจ Regulation / Security / Safety แยกตาม Tier |
@@ -48,4 +49,4 @@ python scripts/validate_kabac.py path/to/kabac.yaml
 
 ## สถานะ
 
-อยู่ใน **Phase 0 – Setup** ดู Roadmap ได้ที่ [PROGRAM-PLAN.md](docs/PROGRAM-PLAN.md#8-แผน-rollout)
+อยู่ใน **Phase 0 – Setup** · Audit pipeline ทดสอบบน GitHub แล้ว · เว็บ Hub มีต้นแบบแล้ว (ข้อมูลสมมติ) ดู Roadmap ได้ที่ [PROGRAM-PLAN.md](docs/PROGRAM-PLAN.md#8-แผน-rollout)
