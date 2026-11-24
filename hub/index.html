@@ -6,27 +6,33 @@
   <title>Vibe Coding Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Montserrat:wght@800;900&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="#/">
-        <span class="brand-mark">K</span>
-        <span>Vibe Coding Hub</span>
+    <div class="topbar-inner">
+      <a class="brand" href="#/" aria-label="Vibe Coding Hub หน้าแรก">
+        <!-- Replace .logo-slot with the organisation logo, e.g. <img src="assets/logo.svg" alt=""> -->
+        <span class="logo-slot" aria-hidden="true"><span>KM</span></span>
+        <span class="brand-text"><small>KM · AI</small><b>VIBE CODING HUB</b></span>
       </a>
-      <nav class="nav">
-        <a href="#/" data-nav="home">ผลงานทั้งหมด</a>
-        <a href="#/submit" data-nav="submit">ส่งผลงาน</a>
-      </nav>
+      <div class="top-actions">
+        <button class="icon-btn" id="top-search" type="button" aria-label="ค้นหา" data-icon="search"></button>
+        <a class="icon-btn" href="#/saved" aria-label="ผลงานที่บันทึกไว้" data-icon="bookmark"><span class="dot" id="saved-count" hidden></span></a>
+      </div>
     </div>
   </header>
-  <div id="demo-banner" class="demo-banner" hidden>
-    <div class="wrap">เว็บต้นแบบ · ผลงานทั้งหมดในหน้านี้เป็นข้อมูลตัวอย่างสมมติ</div>
+  <div id="demo-banner" class="demo-banner" hidden>เว็บต้นแบบ · ผลงานทั้งหมดเป็นข้อมูลตัวอย่างสมมติ</div>
+
+  <div class="shell">
+    <nav class="rail" id="rail" aria-label="หมวดหมู่"></nav>
+    <main id="app"></main>
   </div>
-  <main id="app" class="wrap"></main>
-  <footer class="footer wrap">KM-AI Vibe Code Hub · ผลงานทุกชิ้นผ่านการตรวจตาม KABAC และ Audit Checklist ก่อนเผยแพร่</footer>
+
+  <a class="fab" href="#/submit"><span data-icon="pencil"></span>แชร์ผลงาน</a>
+  <footer class="footer">KM-AI Vibe Code Hub · ผลงานทุกชิ้นผ่านการตรวจตาม KABAC และ Audit Checklist ก่อนเผยแพร่</footer>
+
   <script src="data/projects.js"></script>
   <script src="app.js"></script>
 </body>
