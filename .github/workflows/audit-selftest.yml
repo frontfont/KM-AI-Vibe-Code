@@ -1,0 +1,103 @@
+# Self-test for the reusable vibe-audit workflow.
+#  - good: the real reusable workflow must PASS on the filled example
+#  - bad:  every scanner must FAIL on a deliberately bad project built at runtime
+# The "bad" job mirrors the commands in vibe-audit.yml; keep them in sync.
+name: audit-selftest
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/vibe-audit.yml
+      - .github/workflows/audit-selftest.yml
+      - scripts/**
+      - schema/**
+      - tests/**
+  pull_request:
+    paths:
+      - .github/workflows/vibe-audit.yml
+      - .github/workflows/audit-selftest.yml
+      - scripts/**
+      - schema/**
+      - tests/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  good:
+    uses: ./.github/workflows/vibe-audit.yml
+    with:
+      kabac_path: examples/policy-search-assistant/kabac.yaml
+      hub_ref: ${{ github.sha }}
+
+  bad-local-scanners:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml jsonschema
+      - run: tests/make_bad_fixture.sh "$RUNNER_TEMP/bad"
+      - id: kabac
+        continue-on-error: true
+        run: python scripts/validate_kabac.py "$RUNNER_TEMP/bad/kabac.yaml"
+      - id: gitleaks
+        continue-on-error: true
+        run: |
+          docker run --rm -v "$RUNNER_TEMP/bad:/repo" ghcr.io/gitleaks/gitleaks:v8.21.2 \
+            detect --source /repo --redact --verbose
+      - id: pii
+        continue-on-error: true
+        run: python scripts/scan_pii.py "$RUNNER_TEMP/bad"
+      - id: skills
+        continue-on-error: true
+        run: python scripts/scan_skills.py "$RUNNER_TEMP/bad"
+      - name: Every check must have failed
+        run: |
+          fail=0
+          for pair in "kabac=${{ steps.kabac.outcome }}" "gitleaks=${{ steps.gitleaks.outcome }}" \
+                      "pii=${{ steps.pii.outcome }}" "skills=${{ steps.skills.outcome }}"; do
+            echo "$pair"
+            [ "${pair#*=}" = "failure" ] || { echo "::error::${pair%%=*} did not catch the bad fixture"; fail=1; }
+          done
+          exit $fail
+
+  bad-semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: apk add --no-cache bash git >/dev/null 2>&1 || true
+      - run: tests/make_bad_fixture.sh /tmp/bad
+      - id: semgrep
+        continue-on-error: true
+        working-directory: /tmp/bad
+        run: semgrep scan --config p/default --severity ERROR --error --metrics off
+      - name: Semgrep must report findings (exit 1), not crash
+        run: |
+          echo "semgrep outcome: ${{ steps.semgrep.outcome }}"
+          [ "${{ steps.semgrep.outcome }}" = "failure" ]
+
+  bad-trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: tests/make_bad_fixture.sh "$RUNNER_TEMP/bad"
+      - id: trivy
+        continue-on-error: true
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: ${{ runner.temp }}/bad
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+      - name: Trivy must have failed
+        run: |
+          echo "trivy outcome: ${{ steps.trivy.outcome }}"
+          [ "${{ steps.trivy.outcome }}" = "failure" ]
