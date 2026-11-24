@@ -16,6 +16,12 @@ on:
         description: Ref of km-ai-vibe-code to take scripts/schema from
         type: string
         default: main
+    secrets:
+      hub_token:
+        description: >-
+          Read-only token for frontfont/km-ai-vibe-code. Needed once the hub repo
+          is private; callers pass it with `secrets: inherit` or explicitly.
+        required: false
     outputs:
       tier:
         description: Audit tier computed from kabac.yaml (T1/T2/T3)
@@ -37,6 +43,7 @@ jobs:
           repository: frontfont/km-ai-vibe-code
           ref: ${{ inputs.hub_ref }}
           path: .vibe-hub
+          token: ${{ secrets.hub_token || github.token }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -92,6 +99,7 @@ jobs:
           repository: frontfont/km-ai-vibe-code
           ref: ${{ inputs.hub_ref }}
           path: .vibe-hub
+          token: ${{ secrets.hub_token || github.token }}
       - run: python3 .vibe-hub/scripts/scan_pii.py .
 
   skills:
@@ -104,6 +112,7 @@ jobs:
           repository: frontfont/km-ai-vibe-code
           ref: ${{ inputs.hub_ref }}
           path: .vibe-hub
+          token: ${{ secrets.hub_token || github.token }}
       - run: python3 .vibe-hub/scripts/scan_skills.py .
 
   summary:

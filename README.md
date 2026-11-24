@@ -18,6 +18,7 @@
 1. คัดลอกโฟลเดอร์ [`template/`](template/) ไปเป็น repo ใหม่ของโปรเจกต์
 2. กรอก [`kabac.yaml`](template/kabac.yaml) ให้ครบ ดูวิธีเขียนได้ที่ [KABAC Manual](docs/KABAC-MANUAL.md) และตัวอย่างที่ [`examples/`](examples/)
 3. Push โค้ดขึ้น GitHub แล้วรอให้ workflow `vibe-audit` ผ่าน (ตรวจ Secret, SAST, Dependency, PII, Skills)
+   - repo กลางนี้เป็น private: ต้องเพิ่ม secret ชื่อ `HUB_READ_TOKEN` ใน repo ของคุณ (fine-grained token สิทธิ์ Contents: Read-only บน `km-ai-vibe-code`) ขอ token ได้จากทีม AI CoE
 4. เปิด Issue **"🚀 ส่งผลงาน Vibe Coding"** ใน repo นี้ แล้วแนบลิงก์ repo
 5. ทีม AI CoE จัด Tier และส่งต่อผู้ตรวจ เมื่อผ่านแล้วจะเพิ่มลง [`registry/projects.yaml`](registry/projects.yaml) และขึ้นเว็บ Hub
 

@@ -11,3 +11,7 @@ permissions:
 jobs:
   audit:
     uses: frontfont/km-ai-vibe-code/.github/workflows/vibe-audit.yml@main
+    # The hub repo is private: add a repo/org secret HUB_READ_TOKEN
+    # (fine-grained PAT, Contents: read-only on km-ai-vibe-code).
+    secrets:
+      hub_token: ${{ secrets.HUB_READ_TOKEN }}
